@@ -1,31 +1,29 @@
 package com.tinder.books.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "TB_USER")
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "first_name",nullable = false,length = 80)
     private String firstName;
 
-    @Column(name = "first_name",nullable = false,length = 80)
+    @Column(name = "last_name",nullable = false,length = 80)
     private String lastName;
 
     @Column(nullable = false,length = 200)
-    private String anddress;
+    private String address;
 
     @Column(nullable = false,length = 10)
     private String gender;
@@ -56,11 +54,11 @@ public class UserModel implements Serializable {
     }
 
     public String getAnddress() {
-        return anddress;
+        return address;
     }
 
     public void setAnddress(String anddress) {
-        this.anddress = anddress;
+        this.address = anddress;
     }
 
     public String getGender() {
@@ -72,15 +70,21 @@ public class UserModel implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserModel userModel = (UserModel) o;
-        return Objects.equals(id, userModel.id) && Objects.equals(firstName, userModel.firstName) && Objects.equals(lastName, userModel.lastName) && Objects.equals(anddress, userModel.anddress) && Objects.equals(gender, userModel.gender);
+    public int hashCode() {
+        return Objects.hash(address, firstName, gender, id, lastName);
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, anddress, gender);
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        UserModel other = (UserModel) obj;
+        return Objects.equals(address, other.address) && Objects.equals(firstName, other.firstName)
+                && Objects.equals(gender, other.gender) && Objects.equals(id, other.id)
+                && Objects.equals(lastName, other.lastName);
     }
 }
