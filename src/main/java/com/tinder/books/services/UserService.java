@@ -4,20 +4,18 @@ package com.tinder.books.services;
 import com.tinder.books.model.UserModel;
 import com.tinder.books.repositories.UserRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
 
 @Service
-public class UserServices {
+public class UserService {
 
 
     public final UserRepository userRepository;
 
-    public UserServices(UserRepository userRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
 
     public List<UserModel> list(){
         return userRepository.findAll();
@@ -50,7 +48,6 @@ public class UserServices {
                .orElseThrow(() -> new IllegalArgumentException("Not found"));
 
                userRepository.delete(user);
-
     }
 
 }
